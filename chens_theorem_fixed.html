@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Chen's Theorem</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Chen's Theorem</h1>
+</header>
+<p>Chen’s theorem states that every sufficiently large even integer can
+be written as the sum of an odd prime and a number that is a product of
+at most two primes.</p>
+<p><strong>Theorem</strong> Let <span
+class="math inline">\(r(N)\)</span> denote the number of representations
+of <span class="math inline">\(N\)</span> in the form <span
+class="math display">\[N = p+n,\]</span> where <span
+class="math inline">\(p\)</span> is an odd prime and <span
+class="math inline">\(n\)</span> is the product of at most two primes.
+Then <span class="math display">\[r(N)\gg
+\mathfrak{S}(N)\,\frac{N}{(\log N)^2},\]</span> where <span
+class="math display">\[\mathfrak{S}(N)=\prod_{p&gt;2}\!\left(1-\frac{1}{(p-1)^2}\right)\;
+  \prod_{\substack{p\mid N\\ p&gt;2}}\frac{p-1}{p-2}.\]</span></p>
+<p>The idea is to apply the sieving method. Let <span
+class="math inline">\(z = N^{1/8}\)</span> and we consider first
+consider <span class="math inline">\(n = N - p\)</span> with <span
+class="math display">\[n \in \{1, p, p_1 p_2 : p_1, p_2 \ge
+z\},\]</span> we then obtain <span class="math display">\[r(N) \ge
+\sum_{\substack{N = p + n \\ n \in \{1, p, p_1 p_2 : p_1, p_2 \ge z\}}}
+1\]</span> and in this case the difference is much smaller than <span
+class="math inline">\(N^{1/4}\)</span>.</p>
+<p>Let <span class="math inline">\(\mathcal{P}\)</span> be the set of
+primes that do not divide <span class="math inline">\(N\)</span>. Then,
+let <span class="math display">\[\mathcal{A} = \{\, N - p : p \le N,\ p
+\in \mathcal{P} \,\}\]</span> and if <span class="math inline">\(n \in
+\mathcal{A}\)</span>, then <span class="math inline">\((n,N) =
+1\)</span> and the difference of its cardinality between the previous
+set is <span class="math inline">\(\ll\)</span> <span
+class="math inline">\(\omega(n)\)</span>. Let <span
+class="math display">\[P(z) = \prod_{\substack{p \in \mathcal{P} \\ p
+&lt; z}} p,\]</span> If <span class="math inline">\(n \in \mathcal{A} \
+\text{ and } \ n \in \{1, p, p_1 p_2 : p_1, p_2 \ge z\}, \ \text{ then }
+(n, P(z)) = 1,\ \text{ and}\)</span> <span class="math display">\[r(N)
+\ge \sum_{\substack{n \in \mathcal{A} \\ (n, P(z)) = 1 \\ n \in \{1, p,
+p_1 p_2 : p_1, p_2 \ge z\}}} 1\]</span></p>
+<p>Then, we want to drop the last condition to replace <span
+class="math inline">\(1\)</span> with a non-negative weight function
+that loses to <span class="math inline">\(1\)</span>. Let <span
+class="math inline">\(N\)</span> be an even integer, <span
+class="math inline">\(N \ge 4^8\)</span>, and <span
+class="math inline">\(y = N^{1/8}\)</span>. We define <span
+class="math display">\[f(n) = 1 \;-\; \frac{1}{2}\sum_{\substack{z \le q
+&lt; y \\ q^k \parallel n}} k \;-\;
+\frac{1}{2}\sum_{\substack{p_1 p_2 p_3 \mid n \\ z \le p_1 &lt; y \le
+p_2 \le p_3}} 1 ,\]</span> then <span
+class="math inline">\(f(n)=1\)</span> iff <span
+class="math inline">\(n\)</span> is divisible by no prime in <span
+class="math inline">\([z,y)\)</span>. If <span class="math inline">\(n
+\in \mathcal{A}\)</span> with <span
+class="math inline">\((n,P(z))=1\)</span>, then <span
+class="math inline">\(n=p_1\cdots p_r\cdots p_{r+s}\)</span>, where
+<span class="math display">\[z \le p_1 \le \cdots \le p_r &lt; y \le
+p_{r+1} \le \cdots \le p_{r+s},\]</span> and if <span
+class="math inline">\(f(n)&gt;0\)</span>, then either <span
+class="math inline">\(r=0\)</span> and <span
+class="math inline">\(s=0,1,\)</span> or <span
+class="math inline">\(2\)</span>, or <span
+class="math inline">\(r=1\)</span>, <span
+class="math inline">\(s=0,\)</span> or <span
+class="math inline">\(1\)</span>. That is, it follows that <span
+class="math display">\[r(N) \ge \sum_{\substack{n \in
+\mathcal{A}\\(n,P(z))=1}} f(n)
+= \left( \sum_{\substack{n \in \mathcal{A}\\(n,P(z))=1}} 1 \right)
+- \frac{1}{2} \sum_{z \le q &lt; y} \left( \sum_{\substack{n \in
+\mathcal{A}\\(n,P(z))=1\\ q^k \parallel n}} k \right)
+- \frac{1}{2} \sum_{\substack{p_1 p_2 p_3 \mid n\\ z \le p_1 &lt; y \le
+p_2 \le p_3}} 1\]</span> To express these three terms as sieving
+functions, let <span class="math display">\[A=\sum_{n=1}^\infty
+1_{\mathcal{A}}(n)\]</span> and <span
+class="math inline">\(A_q=\sum_{n=1}^\infty a(n)\)</span>, where <span
+class="math display">\[a(n)=
+\begin{cases}
+1, &amp; \text{if } n\in\mathcal{A}\text{ and } q\mid n,\\
+0, &amp; \text{otherwise}.
+\end{cases}\]</span> Let <span class="math display">\[\mathcal{B}=\{\,
+N-p_1p_2p_3:\ z\le p_1&lt; y \le p_2\le p_3,\ (p_1p_2p_3,N)=1,\
+p_1p_2p_3&lt;N \,\},\]</span> and <span
+class="math inline">\(B=\sum_{n=1}^\infty 1_B(n)\)</span>. Then <span
+class="math display">\[r(N)\ge S(\mathcal{A},\mathcal{P},z)
+-\sum_{z\le q&lt;y} S(\mathcal{A}_q,\mathcal{P},z)
+-\Big(\sum_{\substack{n\in\mathcal{A}\\(n,P(z))=1}}\sum_{\substack{z\le
+q&lt;y\\q^k \parallel n\\k \ge 2}}(k-1)\Big)
+-\sum_{p\in\mathcal{B}}1\]</span> <span class="math display">\[\gg
+S(\mathcal{A},\mathcal{P},z)-\sum_{z\le q&lt;y}
+S(\mathcal{A}_q,\mathcal{P},z)-S(B,\mathcal{P},y).\]</span> To apply the
+Jurkat–Richert Sieve, we choose the multiplicative function <span
+class="math display">\[g(d) = g_n(d) = \frac{1}{\varphi(d)}\]</span> for
+all <span class="math inline">\(n \ge 1\)</span>.</p>
+<p><strong>Lemma</strong> For all <span
+class="math inline">\(\varepsilon &gt; 0\)</span>, there exists <span
+class="math inline">\(u_1(\varepsilon)\)</span> such that <span
+class="math display">\[\prod_{u &lt; p \le z} \left( 1 - \frac{1}{p}
+\right)^{-1} &lt; \left( 1 + \frac{\varepsilon}{3} \right) \frac{\log
+z}{\log u}\]</span> for any <span class="math inline">\(u_1(\varepsilon)
+\le u &lt; z\)</span>.</p>
+<p>This lemma is a corollary from Merten’s theorem. Also, by the
+convergence of infinite products, it yields that there exists <span
+class="math inline">\(u_2(\varepsilon)\)</span> such that <span
+class="math display">\[\prod_{\substack{p \ge u_2(\epsilon)}}
+\frac{(p-1)^2}{p(p-2)} &lt; 1 + \frac{\varepsilon}{3}.\]</span></p>
+<p>Therefore, for <span class="math inline">\(u \ge u_0(\varepsilon)
+\equiv \max(u_1(\varepsilon), u_2(\varepsilon))\)</span>, we have <span
+class="math display">\[\prod_{\substack{u &lt; p \le z}} \left( 1 - g(p)
+\right)^{-1}
+&lt; \left( 1 + \varepsilon \right) \frac{\log z}{\log u}.\]</span>
+Hence, let <span class="math inline">\(\mathcal{Q}(\varepsilon)\)</span>
+be the set of all primes <span class="math inline">\(p &lt;
+u_0(\varepsilon)\)</span>, and let <span
+class="math inline">\(\mathcal{Q}=\mathcal{P}\ \cap \
+\mathcal{Q}\)</span>, and <span class="math display">\[Q = \prod_{p \in
+\mathcal{Q}(\varepsilon)} p,\]</span> since <span
+class="math inline">\(Q\)</span> depends on <span
+class="math inline">\(\varepsilon\)</span>, then we can choose
+sufficiently large <span class="math inline">\(N\)</span> so that <span
+class="math inline">\(Q &lt; \log N\)</span>.</p>
+<p>Recall that <span class="math display">\[V(z) = \prod_{p \mid P(z)}
+\left( 1 - g(p) \right)^{-1}
+= \prod_{\substack{p &lt; z \\ p \nmid N}} \left( 1 - \frac{1}{p-1}
+\right)\]</span> <span class="math display">\[= \mathfrak{S}(N)
+\frac{e^{-\gamma}}{\log z} \left( 1 + O\left( \frac{1}{\log N} \right)
+\right),\]</span> where</p>
+<p><span class="math display">\[\mathfrak{S}(N) = 2 \prod_{p&gt;2}
+\left( 1 - \frac{1}{(p-1)^2} \right) \prod_{\substack{p \mid N \\ p &gt;
+2}} \frac{p-1}{p-2}.\]</span> We then first estimate the first sieving
+function. For the main term, we have <span
+class="math display">\[|\mathcal{A}| = \sum_{\substack{p &lt; N \\ (p,
+N) = 1}} 1
+= \pi(N) - \omega(N)
+= \frac{N}{\log N} \left( 1 + O\left( \frac{1}{\log N} \right)
+\right).\]</span> As for the remainder term, <span
+class="math display">\[R = \sum_{\substack{d &lt; QD \\ d \mid P(z)}}
+|r(d)|\]</span> where <span class="math display">\[r(d) =
+|\mathcal{A}_d| - \sum_{n} a(n) g(d) = |\mathcal{A}_d| -
+\frac{|\mathcal{A}|}{\varphi(d)}.\]</span> Note <span
+class="math display">\[\begin{aligned}
+|\mathcal{A}_d| &amp;= \sum_{\substack{n=1\\d\mid n}}^{\infty} a(n)\\
+&amp;= \sum_{\substack{p\in \mathcal{P}\\p \equiv N \ (\mathrm{mod}\ d)
+\\ p \le N}} 1\\
+&amp;= \sum_{\substack{p \in \mathcal{P} \\ p \equiv N \ (\mathrm{mod}\
+d)}} 1 + O(\omega(N))\\
+&amp;= \pi(N; d, N) + O(\log N).\end{aligned}\]</span></p>
+<p>It follows that <span class="math display">\[r(d) = \pi(N; d, N) -
+\frac{\pi(N)}{\varphi(d)} + O(\log N).\]</span> By applying the
+Bombieri–Vinogradov Theorem, we have for any <span
+class="math inline">\(A &gt; 0\)</span>, <span
+class="math inline">\(N^{1/2} (\log N)^{-A} \le QD \le N^{1/2}\)</span>,
+<span class="math display">\[\sum_{\substack{d &lt; QD}}
+\max_{\substack{d\\(d,N)=1}} \left| \pi(N; d, N) -
+\frac{\pi(N)}{\varphi(d)} \right|
+\ll N^{1/2} Q (\log N)^6.\]</span> It follows that <span
+class="math display">\[R \ll \frac{N}{(\log N)^3},
+\quad D = N^{\frac{1}{2} - \varepsilon},
+\quad \text{and} \quad s = \frac{\log D}{\log z} \in [3,4].\]</span></p>
+<p>Therefore, <span class="math display">\[S(\mathcal{A}, \mathcal{P},
+z) &gt; \left( \frac{e^{-\gamma} \log 3}{2} + O(\varepsilon) \right)
+\frac{N V(z)}{\log N}.\]</span> Similarly, we can obtain the estimation
+for <span class="math display">\[\sum_{z \le q &lt; y} S(\mathcal{A}_q,
+\mathcal{P}, z)
+&lt; \left( \frac{e^{-\gamma} \log 6}{2} + O(\varepsilon) \right)
+\frac{N V(z)}{\log N}.\]</span> However, for the last sieving function,
+we estimate the following sieve. Let <span
+class="math display">\[\mathcal{B}^{(\ell)} = \{ N - p_1 p_2 p_3 : z \le
+p_1 &lt; y \le p_2 \le p_3,\ l \le p_1 &lt; (1+\varepsilon)l,\ p_1 p_2
+p_3 &lt; N, \ (p_1 p_2 p_3, N) = 1 \},\]</span> where <span
+class="math inline">\(l\)</span> is a number of the form <span
+class="math display">\[l = z (1+\varepsilon)^k\]</span> such that <span
+class="math inline">\(z \le l &lt; y\)</span>, then <span
+class="math inline">\(k \ll \frac{\log N}{\varepsilon}\)</span>. Let
+<span class="math display">\[\widetilde{\mathcal{B}} = \bigcup_{\ell}
+\mathcal{B}^{(\ell)}.\]</span> Then, <span
+class="math display">\[\mathcal{B} \subset \widetilde{\mathcal{B}}
+\subset \{ N - p_1 p_2 p_3 : z \le p_1 &lt; y \le p_2 \le p_3, \ p_1 p_2
+p_3 &lt; (1+\varepsilon) N \}.\]</span> Let <span
+class="math inline">\(b(n)\)</span>, <span
+class="math inline">\(b^{(\ell)}(n)\)</span> and <span
+class="math inline">\(\widetilde{b}(n)\)</span> be the characteristic
+functions of the sets <span class="math inline">\(\mathcal{B}\)</span>,
+<span class="math inline">\(\mathcal{B}^{(\ell)}\)</span> and <span
+class="math inline">\(\widetilde{\mathcal{B}}\)</span>, respectively.
+Since the sets are pairwise disjoint, we have <span
+class="math display">\[|\widetilde{\mathcal{B}}| = \sum_{\ell}
+|\mathcal{B}^{(\ell)}|\]</span> and <span class="math display">\[S(B,
+\mathcal{P}, y) \le S(\widetilde{{B}}, \mathcal{P}, y) = \sum_{\ell}
+S(B^{(\ell)}, \mathcal{P}, y).\]</span> Again, with the similar process
+as before, we obtain <span class="math display">\[S(B, \mathcal{P}, y)
+&lt; \left( \frac{ce^{\gamma}}{2} + O(\varepsilon) \right) \frac{N
+V(z)}{\log N} + R^{(\ell)}\]</span> where <span
+class="math inline">\(c=0.364 \dots\)</span> As for <span
+class="math inline">\(R^{(\ell)}\)</span>, this would be a consequence
+of the following theorem, which is going to be proved in another
+chapter.</p>
+<p><strong>Theorem</strong> Let <span
+class="math inline">\(a(n)\)</span> be an arithmetic function such that
+<span class="math inline">\(|a(n)| \le 1\)</span> for all <span
+class="math inline">\(n\)</span>. Let <span class="math inline">\(A &gt;
+0\)</span>, let <span class="math inline">\(X &gt; (\log
+Y)^{2A}\)</span>, and let <span class="math display">\[D^* = \frac{(X
+Y)^{1/2}}{(\log Y)^A}.\]</span> Then <span
+class="math display">\[\sum_{\substack{d &lt; D^* }} \max_{(a,d)=1}
+\left| \sum_{n&lt;X} \sum_{\substack{z \le p &lt; Y \\ np \equiv a
+\pmod{d}}} a(n) - \frac{1}{\varphi(d)} \sum_{n&lt;X}\sum_{\substack{z
+\le p &lt; Y \\ (np, d)=1}} a(m) \right|
+\ll \frac{X Y (\log X Y)^2}{(\log Y)^A},\]</span> where the implied
+constant depends only on <span class="math inline">\(A\)</span>.</p>
+<p>Note, <span class="math display">\[r_d^{(\ell)} = |B_d^{(\ell)}| -
+\frac{|B^{(\ell)}|}{\varphi(d)}
+= \sum_{\substack{
+z \le p_1 &lt; y \le p_2 \le p_3\\
+l \le p_1 &lt; (1+\varepsilon)l\\
+p_1p_2p_3 &lt; N,\ (p_1p_2p_3,N)=1\\
+p_1p_2p_3 \equiv N \pmod d
+}} 1
+\;-\;
+\frac{1}{\varphi(d)}
+\sum_{\substack{
+z \le p_1 &lt; y \le p_2 \le p_3\\
+l \le p_1 &lt; (1+\varepsilon)l\\
+p_1p_2p_3 &lt; N,\ (p_1p_2p_3,N)=1
+}} 1 .\]</span> For the latter term, we add the condition that <span
+class="math inline">\((p_1 p_2 p_3, d) = 1\)</span>, same as <span
+class="math inline">\((p_1, d) = 1\)</span>, as <span
+class="math inline">\(d \mid P(z)\)</span> refers to <span
+class="math inline">\((p_1 p_2 p_3, d) = 1\)</span>. Then the difference
+is at most of <span
+class="math display">\[\frac{1}{\varphi(d)}\sum_{\substack{p_1p_2p_3&lt;(1+\epsilon)N\\p_1\mid
+d , \, p_1\ge z}} 1&lt;\frac{(1+\epsilon)N}{\varphi(d)}
+\sum_{\substack{p_1 \mid d \\ p_1 \ge z}} \frac{1}{p_1}
+\le \frac{(1+\varepsilon) N \omega(d)}{\varphi(d) z}
+\ll \frac{N \log d}{z \varphi(d)}.\]</span> Let <span
+class="math inline">\(a(n)\)</span> be the characteristic function of
+the set of numbers of the form <span class="math inline">\(n = p_2
+p_3\)</span>, where <span class="math inline">\(y \le p_2 \le
+p_3\)</span> and <span class="math inline">\((p_2 p_3, N) = 1\)</span>.
+Then <span class="math display">\[r_d^{(\ell)} = \sum_{n \le X}
+\sum_{\substack{z \le p &lt; Y \\ np\equiv a(\operatorname{mod} d)}}
+a(n)
+- \frac{1}{\varphi(d)} \sum_{n &lt; X} \sum_{\substack{z \le p &lt; Y \\
+(np, d) = 1}} a(n)
++ O\left( \frac{N \log d}{z\varphi(d) \, } \right)\]</span> By inserting
+the following to the previous identity <span class="math display">\[X =
+\frac{N}{l}, \quad
+Y = \min \{\, y, (1+\varepsilon)l \,\}, \quad
+Z = \max \{\, z, l \,\}, \quad
+\text{and} \ \  a = N,\]</span> we obtain <span class="math display">\[D
+= \frac{N^{1/2}}{(\log N)^A} \le \frac{(X Y)^{1/2}}{(\log Y)^A} = D^*
+&lt; (X Y)^{1/2} \le N.\]</span> Therefore, if we choose <span
+class="math inline">\(A = 6\)</span>, we have <span
+class="math display">\[R^{(\ell)} \le \sum_{\substack{d &lt; D^* \\ d
+\mid P(y)}} |r_d^{(\ell)}| \ll \frac{N}{(\log N)^4}.\]</span> And after
+combining the estimation of the three sieving functions, we complete the
+proof.</p>
+</body>
+</html>
